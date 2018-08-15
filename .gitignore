@@ -1,0 +1,11 @@
+node_modules/
+bower_components/
+assets/bundle.js.map
+bundle.js.map
+stylesheet.css.map
+npm-debug.log
+package-lock.json
+
+# IntelliJ
+*.iml
+.idea/
