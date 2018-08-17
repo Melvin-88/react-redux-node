@@ -1,14 +1,37 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import CONFIG_DB from './config/keys';
+import bodyParser from 'body-parser';
+import passport from 'passport';
+import {key} from './config/keys';
+
+import users from './routes/api/users';
+import profile from './routes/api/profile';
+import posts from './routes/api/posts';
+
 const app = express();
 
-//DB config
-const db = CONFIG_DB;
+//Body Parser middleware
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/', function (req, res) {
-  res.send('hello world!!!')
-});
+//DB config
+const db = key;
+
+//Connect to MongoDB
+mongoose
+    .connect(db.mongoURI, { useNewUrlParser: true })
+    .then(()=> console.log('MongoDB connected'))
+    .catch (err=>console.log(err))
+
+//Passport middleware
+app.use(passport.initialize());
+
+//Passport config
+require
+
+//User Routes
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+app.use('/api/posts', posts);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
