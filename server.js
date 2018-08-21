@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import {key} from './config/keys';
+import PassportConfig from './config/passport';
 
 import users from './routes/api/users';
 import profile from './routes/api/profile';
@@ -21,13 +22,14 @@ const db = key;
 mongoose
     .connect(db.mongoURI, { useNewUrlParser: true })
     .then(()=> console.log('MongoDB connected'))
-    .catch (err=>console.log(err))
+    .catch (err=>console.log(err));
 
 //Passport middleware
 app.use(passport.initialize());
 
 //Passport config
-require
+// PassportConfig(passport);
+require('./config/passport')(passport);
 
 //User Routes
 app.use('/api/users', users);
